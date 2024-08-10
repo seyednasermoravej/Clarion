@@ -11,7 +11,7 @@
             "mode": "debug",
             // "mode": "exec",
             "program": "${workspaceFolder}/server",
-            "args": ["2", "${workspaceFolder}/server/params/paramsLocal3.txt"]
+            "args": ["0", "${workspaceFolder}/server/params/paramsLocal3.txt"]
         }
     ],
 }

@@ -37,7 +37,8 @@ func MakeCT(numBlocks, msgType int) []byte {
     //make up a message to encrypt, set empty iv
     m := make([]byte, dataLen)
     for i := 0; i < dataLen; i++ {
-        m[i] = byte(97 + msgType) //ascii 'a' is 97
+        m[i] = byte(97) //ascii 'a' is 97
+        // m[i] = byte(97 + msgType) //ascii 'a' is 97
     }
     zeroIV := make([]byte, blockSize)
     

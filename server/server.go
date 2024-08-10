@@ -605,11 +605,11 @@ func main() {
             /*The servers don't actually need to do this last step, the clients can do it 
             themselves, both when it's used for broadcast and messaging*/
             //check macs in merged DBs and decrypt
-            //outputDB, ok := checkMacsAndDecrypt(mergedDB, numServers, msgBlocks+1, batchSize, messagingMode)
-            //if !ok {
-            //    panic("macs did not verify")
-            //}
-            //_ = outputDB 
+            outputDB, ok := checkMacsAndDecrypt(mergedDB, numServers, msgBlocks+1, batchSize, messagingMode)
+            if !ok {
+               panic("macs did not verify")
+            }
+            _ = outputDB 
             
             revealElapsedTime := time.Since(revealTimeStart)
             elapsedTime := time.Since(startTime)
