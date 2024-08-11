@@ -83,12 +83,17 @@ func clientSim(msgType, msgBlocks int, pubKeys []*[32]byte, messagingMode bool) 
     //generate the MACed ciphertext, MAC, and all the keys; secret share
     //look in vendors/mycrypto/crypto.go for details
     msg := mycrypto.MakeCT(msgBlocks-1, msgType)
-    mac, keySeeds := mycrypto.WeirdMac(numServers, msg, messagingMode)
-    bodyShares := mycrypto.Share(numServers, append(msg, mac...))
-        
+
+    // mac, keySeeds := mycrypto.WeirdMac(numServers, msg, messagingMode)
+    // bodyShares := mycrypto.Share(numServers, append(msg, mac...))
+    bodyShares := SplitSecret(msg, 3, 3)
+
+
     //box shares with the appropriate key share seeds prepended
     //"box" sent to leader is actually just sent to the leader without a box
-    msgToSend := append(bodyShares[0], keySeeds[0]...)
+
+    // msgToSend := append(bodyShares[0], keySeeds[0]...)
+    msgToSend := bodyShares[0].Bytes()
     
     //log.Printf("Msg length for one share: %d\n", len(msgToSend))
     //log.Printf("encryption size overhead: %d\n", box.AnonymousOverhead)
@@ -96,7 +101,11 @@ func clientSim(msgType, msgBlocks int, pubKeys []*[32]byte, messagingMode bool) 
     for i:= 1; i < numServers; i++ {
         
         //SealAnonymous appends its output to msgToSend
-        boxedMessage, err := box.SealAnonymous(nil, append(bodyShares[i], keySeeds[i]...), pubKeys[i], rand.Reader)
+
+
+        // boxedMessage, err := box.SealAnonymous(nil, append(bodyShares[i], keySeeds[i]...), pubKeys[i], rand.Reader)
+        boxedMessage, err := box.SealAnonymous(nil, (bodyShares[i].Bytes()), pubKeys[i], rand.Reader)
+
         if err != nil {
             panic(err)
         }
