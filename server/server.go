@@ -127,7 +127,7 @@ func main() {
     
     //set up connections between all the servers
     //holds connections to the other shuffle servers
-    //conns[serverNum] will be empty
+    //conns[serverNum] will be empt
     conns := make([]net.Conn, numServers)
     
     //each server connects to the ones with lower indices
@@ -211,7 +211,7 @@ func main() {
         log.Println("\nClient performance test")
         var totalClientTime time.Duration
         for i:= 0; i < 10; i++ {
-            _, clientTime:= clientSim(batchSize, msgBlocks, pubKeys, messagingMode)
+            _, clientTime:= clientSim(batchSize, msgBlocks + 1, pubKeys, messagingMode)
             totalClientTime += clientTime
             
         }

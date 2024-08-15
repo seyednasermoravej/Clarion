@@ -83,10 +83,10 @@ func LagrangeInterpolation(shares []*big.Int, x *big.Int) *big.Int {
 }
 
 // ReconstructSecret reconstructs the secret from the shares
-func ReconstructSecret(shares []*big.Int) string {
+func ReconstructSecret(shares []*big.Int) []byte {
     secret := LagrangeInterpolation(shares, big.NewInt(0))
     secretBytes := secret.Bytes()
-    return string(secretBytes)
+    return secretBytes
 }
 
 func shamirTest() {

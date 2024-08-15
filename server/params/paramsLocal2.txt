@@ -9,14 +9,14 @@ localhost:4345
 localhost:4346
 PARAMS
 standard
-10
+2
 100
 standard
 2
 1000
 messaging
-10
+2
 100
 standard
-10
+2
 100
